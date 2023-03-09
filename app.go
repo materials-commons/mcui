@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
+	"time"
 )
 
 // App struct
@@ -24,4 +26,11 @@ func (a *App) startup(ctx context.Context) {
 // Greet returns a greeting for the given name
 func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's show time!", name)
+}
+
+func (a *App) OnDomReady(ctx context.Context) {
+	fmt.Println("OnDomReady")
+	time.Sleep(time.Second * 4)
+	fmt.Println("sending domready")
+	runtime.EventsEmit(ctx, "domready")
 }

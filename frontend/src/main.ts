@@ -1,8 +1,12 @@
 import './style.css';
 import './app.css';
+import 'bootstrap';
+import * as htmx from 'htmx.org';
 
-import logo from './assets/images/logo-universal.png';
+// import logo from './assets/images/logo-universal.png';
+import logo2 from './assets/images/logo-large.svg';
 import {Greet} from '../wailsjs/go/main/App';
+import {EventsOn} from "../wailsjs/runtime";
 
 // Setup the greet function
 window.greet = function () {
@@ -29,14 +33,36 @@ window.greet = function () {
 
 document.querySelector('#app')!.innerHTML = `
     <img id="logo" class="logo">
-      <div class="result" id="result">Please enter your name below 👇</div>
+      <div class="result align-content-centerx" id="result">
+      <p>
+         It looks like this is your first time running this. Let's create an account for you. If you already
+         have an account at materialscommons.org, then use the same email and password.
+      </p>
+      </div>
       <div class="input-box" id="input">
         <input class="input" id="name" type="text" autocomplete="off" />
         <button class="btn" onclick="greet()">Greet</button>
       </div>
     </div>
 `;
-(document.getElementById('logo') as HTMLImageElement).src = logo;
+(document.getElementById('logo') as HTMLImageElement).src = logo2;
+
+// htmx.trigger(htmx.find("#start", "start-app", {}));
+
+htmx.on('htmx:afterSettle', function() {
+    console.log('afterSettle');
+});
+
+EventsOn("domready", function() {
+    console.log('dom-ready event caught')
+    // @ts-ignore
+    htmx.trigger(htmx.find("#start"), "start-app", {})
+});
+// htmx.on('htmx:load', function(evt) {
+//     console.log(`htmx:afterSettle fired ${i}`);
+//     i++;
+//     htmx.trigger(htmx.find("#start"), "start-app", {});
+// });
 
 let nameElement = (document.getElementById("name") as HTMLInputElement);
 nameElement.focus();

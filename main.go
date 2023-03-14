@@ -35,6 +35,9 @@ func main() {
 	e.Use(middleware.CORS())
 	g := e.Group("/ui")
 	g.POST("/login", handleLogin)
+	g.GET("/login", handleLogin)
+
+	go func() { _ = e.Start(":15336") }()
 
 	uiHandler := &UIHandler{e: e}
 	// Create application with options
@@ -59,6 +62,6 @@ func main() {
 }
 
 func handleLogin(c echo.Context) error {
-	fmt.Println("handleLogin called now")
+	fmt.Println("handleLogin called now", c.Request().Method)
 	return c.HTML(200, "<p>login called</p>")
 }

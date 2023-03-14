@@ -34,4 +34,4 @@ require (
 	golang.org/x/time v0.0.0-20201208040808-7e3f01d25324 // indirect
 )
 
-// replace github.com/wailsapp/wails/v2 v2.0.0-beta.37 => /home/gtarcea/go/pkg/mod/github.com/wailsapp/wails/v2@v2.0.0-beta.37
+replace github.com/wailsapp/wails/v2 v2.4.0 => /home/gtarcea/workspace/src/github.com/wailsapp/wails/v2

@@ -6,7 +6,7 @@ import * as htmx from 'htmx.org';
 // import logo from './assets/images/logo-universal.png';
 import logo2 from './assets/images/logo-large.svg';
 import {Greet} from '../wailsjs/go/main/App';
-import {EventsOn} from "../wailsjs/runtime";
+// import {EventsOn} from "../wailsjs/runtime";
 
 // Setup the greet function
 window.greet = function () {
@@ -53,11 +53,11 @@ htmx.on('htmx:afterSettle', function() {
     console.log('afterSettle');
 });
 
-EventsOn("domready", function() {
-    console.log('dom-ready event caught')
-    // @ts-ignore
-    htmx.trigger(htmx.find("#start"), "start-app", {})
-});
+// EventsOn("domready", function() {
+//     console.log('domready event caught')
+//     // @ts-ignore
+//     htmx.trigger(htmx.find("#start"), "start-app", {})
+// });
 // htmx.on('htmx:load', function(evt) {
 //     console.log(`htmx:afterSettle fired ${i}`);
 //     i++;
@@ -67,6 +67,12 @@ EventsOn("domready", function() {
 let nameElement = (document.getElementById("name") as HTMLInputElement);
 nameElement.focus();
 let resultElement = document.getElementById("result");
+
+window.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded');
+    // @ts-ignore
+    htmx.trigger(htmx.find("#start"), "start-app", {});
+});
 
 declare global {
     interface Window {
